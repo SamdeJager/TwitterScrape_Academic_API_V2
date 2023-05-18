@@ -1,3 +1,4 @@
+#Code for scraping Twitter with Twitter API V2
 library(academictwitteR)
 
 bearer_token <- "YOUR_OWN_TWITTER_API_V2_KEY"
