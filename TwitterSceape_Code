@@ -1,0 +1,29 @@
+library(academictwitteR)
+
+bearer_token <- "YOUR_OWN_TWITTER_API_V2_KEY"
+query <- "\"MOVIE_TITLE\" movie"
+data_path <- "YOUR_OWN_FILE_DIRECTORY"
+
+date_ranges <- list(
+  c("2021-01-01T00:00:00Z", "2021-12-31T00:00:00Z"). #USE YOUR OWN TIMELINE HERE
+)
+
+tweet_count <- 0
+
+for (range in date_ranges) {
+  tweets <- 
+    get_all_tweets(
+      query = query,
+      start_tweets = range[1],
+      end_tweets = range[2],
+      bearer_token = bearer_token,
+      n = Inf, #CHOOSE A SIZE IF YOU HAVE A MAX, THIS CAN BE IMPORTANT TO NOT EXCEED YOUR API MAXIMUM
+      bind_tweets = TRUE,
+      file = NULL,
+      data_path = data_path
+    )
+  
+  tweet_count <- tweet_count + sum(lengths(tweets))
+}
+
+cat("Tweets mentioning both '", query, "' were counted ", tweet_count, " times.")
