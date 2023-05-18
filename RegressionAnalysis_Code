@@ -1,0 +1,18 @@
+library(tidyverse)
+library(readxl)
+
+setwd("YOUR_OWN_FILE_DIRECTORY")
+data <- read_excel("FILE_NAME", sheet = "SHEET_NAME")
+
+data <- as.data.frame(data)
+rownames(data) <- data$NAME_OF_THE_COLUMN_WITH_SHOW_TITLE
+data <- data %>% select(-NAME_OF_THE_COLUMN_WITH_SHOW_TITLE)
+
+NAME_OF_THE_NEW_DATASET <- data
+
+data <- NAME_OF_THE_NEW_DATASET %>% 
+  mutate(interaction_term = `INDEPENDENT_VARIABLE` * MODERATING_VARIABLE) #THIS IS ONLY NEEDED WHEN YOU HAVA A MODERATOR IN THE ANALYSIS
+
+model <- lm(hours_viewed_2022 ~ `INDEPENDENT_VARIABLE` + MODERATING_VARIABLE + interaction_term, data=data)
+
+summary(model)
